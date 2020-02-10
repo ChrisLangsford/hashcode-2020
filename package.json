@@ -1,0 +1,15 @@
+{
+  "name": "hashcode-2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "practice/practice-problem.js",
+  "scripts": {
+    "practice-problem": "node practice/practice-problem.js",
+    "practice-problem-test": "mocha practice/practice-test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  }
+}

@@ -3,17 +3,16 @@ const fs = require("fs");
 console.log(`main: ${main()}`);
 
 function main() {
-    readFile('./input-1.txt', (err, lines) => {
-        console.log(lines);
-    });
+    let lines = readFile('./a_example.in').trim().split("\n");
+    console.log(lines);
 }
 
-function readFile(path, callback) {
+function readFile(path) {
     try {
         let fileName = require.resolve(path);
-        fs.readFile(fileName, 'utf8', callback);
+        return fs.readFileSync(fileName, 'utf8');
     } catch (e) {
-        callback(e)
+        console.error(e);
     }
 }
 

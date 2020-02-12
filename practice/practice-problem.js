@@ -30,7 +30,7 @@ function knapsackSlower(W, wt, val, n) {
 }
 
 function knapsackFaster(W, wt, val, n) {
-    //from research: this should solve it in O(wn) time which is much faster than run1
+    //from research: this should solve it in O(wn) time which is much faster for larger input data sets
     let i, w;
     let K = [];
 

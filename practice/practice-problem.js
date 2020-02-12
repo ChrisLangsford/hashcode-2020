@@ -1,13 +1,16 @@
 const fs = require("fs");
 
-console.log(`main: ${main()}`);
+console.log(`main: ${main('./a_example.in', './a_out.in')}`);
 
-function main() {
-    let lines = readFile('./a_example.in').trim().split("\n");
+function main(inputFileName, outputFileName) {
+    let lines = readFile(inputFileName).trim().split("\n");
     console.log(lines);
     let W = parseInt(lines[0].split(' ')[0]);
     let wt = lines[1].split(' ').map(x => parseInt(x));
-    return knapsackFaster(W, wt, wt, wt.length);
+    let out = knapsackFaster(W, wt, wt, wt.length);
+    //TODO: finish this up to write the output file in the correct format
+    writeFile(outputFileName, `${out}\n`);
+    return out;
 }
 
 function knapsackSlower(W, wt, val, n) {
@@ -33,6 +36,8 @@ function knapsackFaster(W, wt, val, n) {
     //from research: this should solve it in O(wn) time which is much faster for larger input data sets
     let i, w;
     let K = [];
+    //TODO: finish this implementation to return which pizzas are included in the solution
+    let out = {score: 0, pizzas: []};
 
     //shwifty way of initializing map - probably better to do this with an actual Map object but YOLO
     for (let j = 0; j <= n; j++) {
@@ -53,7 +58,8 @@ function knapsackFaster(W, wt, val, n) {
             }
         }
     }
-    return K[n][W];
+    out.score = K[n][W];
+    return out
 }
 
 function readFile(path) {
@@ -63,6 +69,15 @@ function readFile(path) {
     } catch (e) {
         console.error(e);
     }
+}
+
+function writeFile(path, contents) {
+    fs.writeFile(path, contents, (err) => {
+        if (err) {
+            return console.error(err);
+        }
+        console.log('File saved ' + path);
+    });
 }
 
 function test() {

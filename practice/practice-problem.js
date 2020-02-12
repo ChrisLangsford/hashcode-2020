@@ -27,8 +27,16 @@ function run(W, wt, val, n) {
 
 function run2(W, wt, val, n) {
     let i, w;
-    let K = [[]];
-    //TODO: need a way of initialising this 2d array at the start
+    let K = [];
+
+    //shwifty way of initializing map - probably better to do this with an actual Map object but YOLO
+    for (let j = 0; j <= n; j++) {
+        K.push([]);
+        for (let k = 0; k <= W; k++) {
+            k[j] = [];
+        }
+    }
+
     for (i = 0; i <= n; i++) {
         for (w = 0; w <= W; w++) {
             if (i === 0 || w === 0) {

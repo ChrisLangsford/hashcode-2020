@@ -8,6 +8,7 @@ function main() {
 }
 
 function run(W, wt, val, n) {
+//from research, this will solve in 2^n time - less performant
 
     //If there are no items left to use or the required weight is 0 return 0
     if (n === 0 || W === 0) {
@@ -26,6 +27,7 @@ function run(W, wt, val, n) {
 }
 
 function run2(W, wt, val, n) {
+    //from research: this should solve it in O(wn) time which is much faster than run1
     let i, w;
     let K = [];
 

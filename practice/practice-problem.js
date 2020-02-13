@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-console.log(`main: ${main('./a_example.in', './a_out.in')}`);
+console.log(`main: ${main('./a_example.in', './a_out.in').score}`);
 
 function main(inputFileName, outputFileName) {
     let lines = readFile(inputFileName).trim().split("\n");

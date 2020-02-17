@@ -14,5 +14,8 @@ describe('Test', () => {
         it('should output 16', () => {
             assert.equal(16, practiceProblem.knapsackFaster(17, [2, 5, 6, 8], [2, 5, 6, 8], 4).score);
         });
+        it('should output 16', () => {
+            assert.equal(16, practiceProblem.usingGraph(17, [2, 5, 6, 8]));
+        });
     });
 });

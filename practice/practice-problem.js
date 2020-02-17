@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Graph = require("./graph");
 
 console.log(`main: ${main('./a_example.in', './a_out.in').score}`);
 
@@ -62,6 +63,27 @@ function knapsackFaster(W, wt, val, n) {
     return out
 }
 
+function usingGraph(W, wt) {
+    let graph = new Graph();
+    wt = wt.sort((a, b) => {
+        return a - b
+    });
+    wt.forEach(weight => {
+        graph.addNode(weight);
+        graph.interconnectAllNodes();
+    });
+
+    //rough pseudocode - Shiv feel free to pick this up if you're keen
+    //1. create 2d paths array for each pizza type
+    //2. while solution not found
+    //3. add another entry to paths
+    //3.1 any path === W return as solution
+    //3.2 if paths.length > 1 && any path size > W cull that path
+    // 3.3 if paths length === 1 & path size > W remove last element and return
+    console.log(JSON.stringify(graph));
+    return null;
+}
+
 function readFile(path) {
     try {
         let fileName = require.resolve(path);
@@ -84,4 +106,10 @@ function test() {
     return true;
 }
 
-module.exports = {main: main, test: test, knapsackSlower: knapsackSlower, knapsackFaster: knapsackFaster};
+module.exports = {
+    main: main,
+    test: test,
+    knapsackSlower: knapsackSlower,
+    knapsackFaster: knapsackFaster,
+    usingGraph: usingGraph
+};

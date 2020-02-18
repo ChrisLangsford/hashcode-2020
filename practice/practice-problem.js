@@ -14,6 +14,39 @@ function main(inputFileName, outputFileName) {
     return out;
 }
 
+function solve(W, wt) {
+    let n = wt.length;
+    let maxScore = 0;
+    let solution = [];
+
+    for (let i = n-1; i >= 0; i--) {
+        let size = i;
+        let sum = 0;
+        let currentList = [];
+
+        for (let j = size; j >=0 ; j--) {
+            let currentValue = wt[j];
+            let tempSum = sum + currentValue;
+
+            if (tempSum === W) {
+                sum = tempSum;
+                currentList.push(j);
+            }  else if (tempSum < W) {
+                sum = tempSum;
+                currentList.push(j);
+            }
+
+            if (maxScore < sum) {
+                maxScore = sum;
+                solution = currentList;
+            }
+
+        }
+    }
+    console.log(`Score: ${maxScore}`);
+    return solution;
+}
+
 function knapsackSlower(W, wt, val, n) {
 //from research, this will solve in 2^n time - less performant
 
@@ -111,5 +144,6 @@ module.exports = {
     test: test,
     knapsackSlower: knapsackSlower,
     knapsackFaster: knapsackFaster,
-    usingGraph: usingGraph
+    usingGraph: usingGraph,
+    solve: solve
 };

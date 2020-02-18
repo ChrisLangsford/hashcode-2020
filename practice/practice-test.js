@@ -17,5 +17,8 @@ describe('Test', () => {
         it('should output 16', () => {
             assert.equal(16, practiceProblem.usingGraph(17, [2, 5, 6, 8]));
         });
+        it('should output [2,6,8]', () => {
+            assert.deepEqual([3,2,0], practiceProblem.solve(17, [2, 5, 6, 8]));
+        });
     });
 });

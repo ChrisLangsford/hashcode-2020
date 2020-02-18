@@ -8,9 +8,13 @@ function main(inputFileName, outputFileName) {
     console.log(lines);
     let W = parseInt(lines[0].split(' ')[0]);
     let wt = lines[1].split(' ').map(x => parseInt(x));
-    let out = knapsackFaster(W, wt, wt, wt.length);
-    //TODO: finish this up to write the output file in the correct format
-    writeFile(outputFileName, `${out}\n`);
+
+    let ans = solve(W, wt);
+    let out = `${ans.length}\n`;
+    ans.forEach(n => {
+        out += `${n} `;
+    });
+    writeFile(outputFileName, `${out}`);
     return out;
 }
 

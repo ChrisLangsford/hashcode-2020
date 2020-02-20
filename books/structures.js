@@ -6,7 +6,8 @@ class Book {
 }
 
 class Library {
-    constructor(signupTime, processingTime, books, fitness, sortedBooks) {
+    constructor(id, signupTime, processingTime, books, fitness, sortedBooks) {
+        this.id = id;
         this.signupTime = signupTime;
         this.processingTime = processingTime;
         this.books = books;

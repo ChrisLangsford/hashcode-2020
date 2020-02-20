@@ -2,8 +2,8 @@ const fs = require("fs");
 const SortedArray = require("collections/sorted-array");
 const {Book, Library} = require("./structures.js");
 
-console.log(`main: ${main('./in/a.txt', './out/a_out.txt')}`);
-
+// console.log(`main: ${}`);
+main('./in/c.txt', './books/out/c_out.txt')
 function main(inputFileName, outputFileName) {
     const LINES = readFile(inputFileName).trim().split("\n");
     const DAYS = LINES[0].split(" ")[2];
@@ -16,7 +16,7 @@ function main(inputFileName, outputFileName) {
     }
 
     let l = 2;
-    let libIds = 0;
+    let libId = 0;
     let libraries = [];
     while (l !== LINES.length) {
         let l1 = LINES[l].split(" ");
@@ -27,13 +27,52 @@ function main(inputFileName, outputFileName) {
         });
 
         var sortedBooks = SortedArray(books, booksEqual, compareBooks);
-        libraries.push(new Library(l1[1], l1[2], books, fitness(l1[1], l1[2], books), sortedBooks));
+        libraries.push(new Library(libId, l1[1], l1[2], books, fitness(l1[1], l1[2], books), sortedBooks));
         l += 2;
-        libIds++;
+        libId++;
     }
     let librariesSorted = new SortedArray(libraries, equals, compare);
 
-    writeFile(outputFileName, `${JSON.stringify(globalLibrary)}`);
+    let SIGNUP_ORDER = [];
+
+    let days = DAYS;
+    let selectedBooks = {};
+    //map of book id to library id
+    librariesSorted.array.forEach(lib => {
+        days -= lib.signupTime;
+        SIGNUP_ORDER.push(lib.id);
+        let numBooks = lib.processingTime * days;
+        if (numBooks < lib.length) {
+            let bookCount = 0;
+            lib.sortedBooks.forEach(book => {
+                if (bookCount < numBooks) {
+                    if (!selectedBooks[book.id]) {
+                        selectedBooks[book.id] = lib.id;
+                    }
+                    bookCount++;
+                }
+            });
+        } else {
+            lib.sortedBooks.forEach(book => {
+                if (!selectedBooks[book.id]) {
+                    selectedBooks[book.id] = lib.id;
+                }
+            })
+        }
+    });
+    let out = `${SIGNUP_ORDER.length}\n`;
+    for (let i = 0; i < SIGNUP_ORDER.length; i++) {
+        out += `${SIGNUP_ORDER[i]} ${Object.values(selectedBooks).filter(book => {
+            return book === SIGNUP_ORDER[i]
+        }).length}\n${Object.entries(selectedBooks).filter(([bookId, libId]) => {
+            if (libId === SIGNUP_ORDER[i]) {
+                return bookId;
+            }
+        }).map(x => x[0]).join(" ")}\n`
+    }
+
+
+    writeFile(outputFileName, `${out}`);
     return globalLibrary;
 }
 
@@ -89,7 +128,7 @@ function booksEqual(left, right) {
 }
 
 function compareBooks(left, right) {
-    if(left.score == right.score) {
+    if (left.score == right.score) {
         return 0;
     } else {
         if (left.score < right.score) {

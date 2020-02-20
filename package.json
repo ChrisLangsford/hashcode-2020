@@ -6,8 +6,8 @@
   "scripts": {
     "practice-problem": "node practice/practice-problem.js",
     "practice-problem-test": "mocha practice/practice-test.js",
-    "books": "node practice/books-problem.js",
-    "books-test": "mocha practice/books-test.js"
+    "books": "node books/books-problem.js",
+    "books-test": "mocha books/books-test.js"
   },
   "author": "",
   "license": "ISC",

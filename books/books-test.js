@@ -1,5 +1,5 @@
 let assert = require('assert');
-let practiceProblem = require('./books.js');
+let practiceProblem = require('./books-problem.js');
 
 describe('Test', () => {
     describe('test 1', () => {

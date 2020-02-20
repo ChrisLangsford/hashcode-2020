@@ -39,6 +39,17 @@ function test() {
     return true;
 }
 
+function fitness(sign_up_time, send_rate, books) {
+    return sign_up_time / send_rate * length(books) * score_books(books);
+}
+
+function score_books(books) {
+    var score = 0;
+    books.array.forEach(element => {
+        score += element;
+    });
+}
+
 module.exports = {
     main: main,
     test: test

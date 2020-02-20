@@ -1,11 +1,11 @@
 const fs = require("fs");
 const Graph = require("./graph");
 
-console.log(`main: ${main('./a_example.in', './a_out.in').score}`);
-console.log(`main: ${main('./b_small.in', './b_out.in').score}`);
-console.log(`main: ${main('./c_medium.in', './c_out.in').score}`);
-console.log(`main: ${main('./d_quite_big.in', './d_out.in').score}`);
-console.log(`main: ${main('./e_also_big.in', './e_out.in').score}`);
+console.log(`main: ${main('./a_example.in', './practice/out/a_out.in')}`);
+console.log(`main: ${main('./b_small.in', './practice/out/b_out.in')}`);
+console.log(`main: ${main('./c_medium.in', './practice/out/c_out.in')}`);
+console.log(`main: ${main('./d_quite_big.in', './practice/out/d_out.in')}`);
+console.log(`main: ${main('./e_also_big.in', './practice/out/e_out.in')}`);
 
 function main(inputFileName, outputFileName) {
     let lines = readFile(inputFileName).trim().split("\n");

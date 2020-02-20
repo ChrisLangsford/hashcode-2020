@@ -1,5 +1,5 @@
 const fs = require("fs");
-const SortedMap = require("collections/sorted-map");
+const SortedArray = require("collections/sorted-array");
 const {Book, Library} = require("./structures.js");
 
 console.log(`main: ${main('./in/a.txt', './out/a_out.txt')}`);
@@ -20,29 +20,34 @@ function main(inputFileName, outputFileName) {
     let libraries = [];
     while (l !== LINES.length) {
         let l1 = LINES[l].split(" ");
-        let l2 = LINES[l+1].split(" ");
-        libraries.push(new Library(l1[1], l1[2], l2));
+        let l2 = LINES[l + 1].split(" ");
+
+        let books = l2.map(b => {
+            return globalLibrary[b];
+        });
+
+        libraries.push(new Library(l1[1], l1[2], books, fitness(l1[1], l1[2], books)));
         l += 2;
         libIds++;
     }
-    // let librariesSorted = new SortedMap(libraries, equals, compare);
+    let librariesSorted = new SortedArray(libraries, equals, compare);
 
     writeFile(outputFileName, `${JSON.stringify(globalLibrary)}`);
     return globalLibrary;
 }
 
-// function equals(left, right) {
-//     return left.id == right.id;
-// }
-//
-// function compare(left, right) {
-//     if (left.getFitness() > right.getFitness()) {
-//         return 1;
-//     } else {
-//         return 0;
-//     }
-//     return -1;
-// }
+function equals(left, right) {
+    return left.id == right.id;
+}
+
+function compare(left, right) {
+    if (left.getFitness() < right.getFitness()) {
+        return 1;
+    } else {
+        return 0;
+    }
+    return -1;
+}
 
 function readFile(path) {
     try {
@@ -67,14 +72,15 @@ function test() {
 }
 
 function fitness(sign_up_time, send_rate, books) {
-    return sign_up_time / send_rate * length(books) * score_books(books);
+    return sign_up_time / send_rate * books.length * score_books(books);
 }
 
 function score_books(books) {
     var score = 0;
-    books.array.forEach(element => {
-        score += element;
+    books.forEach(element => {
+        score += element.score;
     });
+    return score;
 }
 
 module.exports = {

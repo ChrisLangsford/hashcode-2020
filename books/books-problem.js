@@ -26,7 +26,8 @@ function main(inputFileName, outputFileName) {
             return globalLibrary[b];
         });
 
-        libraries.push(new Library(l1[1], l1[2], books, fitness(l1[1], l1[2], books)));
+        var sortedBooks = SortedArray(books, booksEqual, compareBooks);
+        libraries.push(new Library(l1[1], l1[2], books, fitness(l1[1], l1[2], books), sortedBooks));
         l += 2;
         libIds++;
     }
@@ -37,7 +38,7 @@ function main(inputFileName, outputFileName) {
 }
 
 function equals(left, right) {
-    return left.id == right.id;
+    return left.id === right.id;
 }
 
 function compare(left, right) {
@@ -81,6 +82,22 @@ function score_books(books) {
         score += element.score;
     });
     return score;
+}
+
+function booksEqual(left, right) {
+    return left.id == right.id;
+}
+
+function compareBooks(left, right) {
+    if(left.score == right.score) {
+        return 0;
+    } else {
+        if (left.score < right.score) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }
 
 module.exports = {

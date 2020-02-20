@@ -6,11 +6,12 @@ class Book {
 }
 
 class Library {
-    constructor(signupTime, processingTime, books, fitness) {
+    constructor(signupTime, processingTime, books, fitness, sortedBooks) {
         this.signupTime = signupTime;
         this.processingTime = processingTime;
         this.books = books;
         this.fitness = fitness;
+        this.sortedBooks = sortedBooks;
     }
 
     getFitness() {

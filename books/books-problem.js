@@ -2,8 +2,12 @@ const fs = require("fs");
 const SortedArray = require("collections/sorted-array");
 const {Book, Library} = require("./structures.js");
 
-// console.log(`main: ${}`);
-main('./in/c.txt', './books/out/c_out.txt')
+main('./in/a.txt', './books/out/a_out.txt');
+main('./in/b.txt', './books/out/b_out.txt');
+main('./in/c.txt', './books/out/c_out.txt');
+main('./in/d.txt', './books/out/d_out.txt');
+main('./in/e.txt', './books/out/e_out.txt');
+main('./in/f.txt', './books/out/f_out.txt');
 function main(inputFileName, outputFileName) {
     const LINES = readFile(inputFileName).trim().split("\n");
     const DAYS = LINES[0].split(" ")[2];
@@ -60,19 +64,24 @@ function main(inputFileName, outputFileName) {
             })
         }
     });
-    let out = `${SIGNUP_ORDER.length}\n`;
+    let out = ``;
+    let outCount = 0;
+    let entries = Object.entries(selectedBooks);
     for (let i = 0; i < SIGNUP_ORDER.length; i++) {
-        out += `${SIGNUP_ORDER[i]} ${Object.values(selectedBooks).filter(book => {
-            return book === SIGNUP_ORDER[i]
-        }).length}\n${Object.entries(selectedBooks).filter(([bookId, libId]) => {
+        let numberOfBooks = entries.filter(([bookId, libId]) => {
             if (libId === SIGNUP_ORDER[i]) {
                 return bookId;
             }
-        }).map(x => x[0]).join(" ")}\n`
+        }).map(x => x[0]);
+        if (numberOfBooks.length !== 0) {
+            outCount ++;
+            out += `${SIGNUP_ORDER[i]} ${numberOfBooks.length}\n${numberOfBooks.join(" ")}\n`;
+        }
     }
+    let outFinal = `${outCount}\n${out}`;
 
 
-    writeFile(outputFileName, `${out}`);
+    writeFile(outputFileName, `${outFinal}`);
     return globalLibrary;
 }
 
@@ -112,7 +121,7 @@ function test() {
 }
 
 function fitness(sign_up_time, send_rate, books) {
-    return sign_up_time / send_rate * books.length * score_books(books);
+    return (send_rate * books.length) / sign_up_time;
 }
 
 function score_books(books) {

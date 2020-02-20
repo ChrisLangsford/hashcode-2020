@@ -5,7 +5,9 @@
   "main": "practice/practice-problem.js",
   "scripts": {
     "practice-problem": "node practice/practice-problem.js",
-    "practice-problem-test": "mocha practice/practice-test.js"
+    "practice-problem-test": "mocha practice/practice-test.js",
+    "books": "node practice/books-problem.js",
+    "books-test": "mocha practice/books-test.js"
   },
   "author": "",
   "license": "ISC",

@@ -14,5 +14,4 @@ class Library {
 }
 
 
-module.exports = Book;
-module.exports = Library;
+module.exports = {Book, Library};

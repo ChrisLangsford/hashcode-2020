@@ -1,19 +1,20 @@
 const fs = require("fs");
+const {Book, Library} = require("./structures.js");
 
-console.log(`main: ${main('./books/in/a_example.txt', './books/out/a_out.txt')}`);
+console.log(`main: ${main('./in/a.txt', './out/a_out.txt')}`);
 
 function main(inputFileName, outputFileName) {
     let lines = readFile(inputFileName).trim().split("\n");
-    console.log(lines);
 
-    let out = "2\n" +
-        "1 3\n" +
-        "5 2 3\n" +
-        "0 5\n" +
-        "0 1 2 3 4 ";
+    let globalLibrary = [];
 
-    writeFile(outputFileName, `${out}`);
-    return out;
+    let books = lines[1].split(" ");
+    for (let i = 0; i < books.length; i++) {
+        globalLibrary.push(new Book(i, books[i]));
+    }
+
+     writeFile(outputFileName, `${JSON.stringify(globalLibrary)}`);
+    return globalLibrary;
 }
 
 function readFile(path) {
